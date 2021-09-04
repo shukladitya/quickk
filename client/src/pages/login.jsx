@@ -1,8 +1,7 @@
 import React from "react";
 import TextField from "../components/textField";
 import PrimaryButton from "../components/primaryButton";
-import SecondaryButton from"../components/secondaryButton";
-import GoogleLogin from 'react-google-login'
+import SecondaryButton from "../components/secondaryButton";
 
 function Login() {
   return (
@@ -10,7 +9,7 @@ function Login() {
       <TextField />
       <TextField />
       <PrimaryButton />
-      <SecondaryButton/>
+      <SecondaryButton />
     </div>
   );
 }
