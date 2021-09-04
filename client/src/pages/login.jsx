@@ -2,6 +2,7 @@ import React from "react";
 import TextField from "../components/textField";
 import PrimaryButton from "../components/primaryButton";
 import SecondaryButton from "../components/secondaryButton";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -9,7 +10,9 @@ function Login() {
       <TextField />
       <TextField />
       <PrimaryButton />
-      <SecondaryButton />
+      <Link to="/signup">
+        <SecondaryButton />
+      </Link>
     </div>
   );
 }

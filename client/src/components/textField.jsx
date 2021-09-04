@@ -7,10 +7,16 @@ const inputStyle = {
   fontSize: "26px",
 };
 
-function TextField() {
+function TextField(props) {
+  function returnText(e) {
+    
+    props.onTextEntered(e.target.value);
+    
+  }
+
   return (
     <div>
-      <input type="text" style={inputStyle}></input>
+      <input onChange={returnText} type="text" style={inputStyle}></input>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDom from "react-dom";
-import Login from './pages/login';
+import App from "./app.jsx";
 
-ReactDom.render(<Login/>, document.querySelector("#root"));
+ReactDom.render(<App />, document.querySelector("#root"));
