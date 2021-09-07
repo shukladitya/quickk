@@ -8,15 +8,14 @@ const inputStyle = {
 };
 
 function TextField(props) {
-  function returnText(e) {
-    
-    props.onTextEntered(e.target.value);
-    
-  }
-
   return (
     <div>
-      <input onChange={returnText} type="text" style={inputStyle}></input>
+      <input
+        onChange={props.onTextEntered}
+        name={props.name}
+        type="text"
+        style={inputStyle}
+      ></input>
     </div>
   );
 }
