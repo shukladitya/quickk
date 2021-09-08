@@ -7,15 +7,22 @@ const inputStyle = {
   fontSize: "26px",
 };
 
+const errorStyle = {
+  color: "red",
+  margin: "2px",
+};
+
 function TextField(props) {
   return (
     <div>
       <input
         onChange={props.onTextEntered}
         name={props.name}
-        type="text"
+        type={props.password === "true" ? "password" : "text"}
         style={inputStyle}
+        placeholder={props.label}
       ></input>
+      <p style={errorStyle}>{props.error}</p>
     </div>
   );
 }
