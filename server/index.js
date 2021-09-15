@@ -3,56 +3,54 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
 
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//database
+const connection = mongoose.createConnection(
+  "mongodb://localhost:27017/tempDB",
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+
+//*
+//***
+//middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
+
+//session store setup
+const sessionStore = new MongoStore({
+  host: "127.0.0.1",
+  port: "27017",
+  db: "session",
+  url: "mongodb://localhost:27017/tempDB",
+});
 
 app.use(
   session({
     secret: process.env.SESSION_SECREAT,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
+//*
+//***
+//routes
+app.get("/", (req, res, next) => {
+  console.log(req.session);
 
-const mongoUrl = process.env.MONGODB_URL;
-mongoose.connect(mongoUrl);
+  if (req.session.viewCount) {
+    req.session.viewCount++;
+  } else req.session.viewCount = 1; //your properties attached to session
 
-const profileSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-  userName: String,
-});
-profileSchema.plugin(passportLocalMongoose);
-const Profile = mongoose.model("Profile", profileSchema);
-passport.use(Profile.createStrategy());
-passport.serializeUser(Profile.serializeUser());
-passport.deserializeUser(Profile.deserializeUser());
-
-app.post("/signup", (req, res) => {
-  console.log(req.body);
-
-  Profile.register(
-    { email: req.body.email, username: req.body.userName },
-    req.body.password,
-    (err, user) => {
-      if (err) {
-        console.log(err);
-      } else {
-        passport.authenticate("local")(req, res, () => {
-          res.json({ data: "ok!" });
-        });
-      }
-    }
+  res.send(
+    `<h1>hello world, You wisited the page ${req.session.viewCount} times today.</h1>`
   );
 });
 
