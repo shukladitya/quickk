@@ -4,7 +4,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
+const crypto = require("crypto"); //native mongo library
+const database = require("./config/database");
+var routes = require("./routes/routes.js");
+
+const app = express();
 
 //database
 const connection = mongoose.createConnection(
@@ -39,21 +45,31 @@ app.use(
   })
 );
 
-//*
-//***
-//routes
-app.get("/", (req, res, next) => {
+/**
+ * -------------- PASSPORT AUTHENTICATION ----------------
+ */
+
+// Need to require the entire Passport config module so app.js knows about it, since everything in passport.js
+//runs once(due to require) the things from 51th line in passport.js will configure the passport accordingly.
+require("./config/passport");
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
   console.log(req.session);
-
-  if (req.session.viewCount) {
-    req.session.viewCount++;
-  } else req.session.viewCount = 1; //your properties attached to session
-
-  res.send(
-    `<h1>hello world, You wisited the page ${req.session.viewCount} times today.</h1>`
-  );
+  console.log(req.user);
+  next();
 });
 
-app.listen(9000, () => {
-  console.log("server running on port 9000");
+/**
+ * -------------- ROUTES ----------------
+ */
+
+// Imports all of the routes from ./routes/routes.js
+app.use(routes);
+
+const port = 9000;
+app.listen(port, () => {
+  console.log(`server running on port ${port}`);
 });
