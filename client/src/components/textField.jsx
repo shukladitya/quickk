@@ -1,18 +1,19 @@
 import React from "react";
 
-const inputStyle = {
-  width: "500px",
-  height: "30px",
-  outline: "none",
-  fontSize: "26px",
-};
-
-const errorStyle = {
-  color: "red",
-  margin: "2px",
-};
-
 function TextField(props) {
+  const inputStyle = {
+    width: "500px",
+    height: "30px",
+    outline: "none",
+    fontSize: "20px",
+    fontWeight: "200",
+    marginTop: props.margin,
+  };
+
+  const errorStyle = {
+    color: "red",
+    margin: "2px",
+  };
   return (
     <div>
       <input

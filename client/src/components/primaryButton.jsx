@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 function PrimaryButton(props) {
+  const [scale, setScale] = useState("scale(1)");
+
   const style = {
     backgroundImage: "linear-gradient(45deg, #7b1fa2, #e91e63)",
     display: "inline-black",
@@ -11,8 +13,23 @@ function PrimaryButton(props) {
     color: "white",
     fontWeight: "bold",
     cursor: "pointer",
+    transform: scale,
+    marginTop:props.margin,
+    transition: "all 0.5s",
   };
-  return <div style={style}>{props.text}</div>;
+  return (
+    <div
+      style={style}
+      onMouseEnter={() => {
+        setScale("scale(1.1)");
+      }}
+      onMouseLeave={() => {
+        setScale("scale(1)");
+      }}
+    >
+      {props.text}
+    </div>
+  );
 }
 
 export default PrimaryButton;
