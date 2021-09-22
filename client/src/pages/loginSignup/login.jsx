@@ -7,22 +7,16 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <div>
-      <div style={{ padding: "20px" }}>
+      <div style={{ padding: "20px" }} className="scaffold">
         <h2>JusAsk</h2>
-        <TextField name="username" label="Username" />
-        <TextField
-          name="password"
-          label="Password"
-          password="true"
-          margin="20px"
-        />
-        <PrimaryButton text="Login" width="160px" margin="20px" />
-        <Link
-          style={{ textDecoration: "none", display: "inline-block" }}
-          to="/signup"
-        >
-          <SecondaryButton text="Signup" width="160px" margin="20px" />
-        </Link>
+        <form action="http://localhost:9000/login" method="post">
+          <input type="text" name="username" placeholder="User Name"></input>
+          <input type="password" name="password" placeholder="Password"></input>
+          <button type="submit" className="btn-primary">
+            Login
+          </button>
+        </form>
+        <button className="btn-secondary">Signup</button>
       </div>
     </div>
   );
