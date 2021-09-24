@@ -1,12 +1,13 @@
 %btn {
   display: inline-block;
   border-radius: 5px;
-  padding: 8px 20px;
   transition: all 0.2s;
   border: none;
   color: white;
-  font-weight: bolder;
   width: 180px;
+  height: 40px;
+  font-size: 25px;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.05);
@@ -21,5 +22,6 @@
 
 .btn-secondary {
   @extend %btn;
-  background-image: linear-gradient(125deg, $primaryColor, $secondaryColor);
+  border: 2px solid $primaryColor;
+  color: black;
 }

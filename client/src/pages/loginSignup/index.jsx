@@ -7,8 +7,6 @@ import Signup from "./signup";
 function LoginSignup() {
   return (
     <Router>
-      <div className="banner"></div>
-      <div className="fixed-position">
         <Switch>
           <Route exact path="/">
             <Login />
@@ -17,7 +15,6 @@ function LoginSignup() {
             <Signup />
           </Route>
         </Switch>
-      </div>
     </Router>
   );
 }

@@ -1,54 +1,42 @@
-import React from "react";
-import TextField from "../../components/textField";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
 
 function Signup() {
-  const [signupData, setSignupData] = useState({ email: "", password: "" ,userName:""});
-
-  const typewriter = (event) => {
-    const { name, value } = event.target; //destruture event.target, now name and value can be used as a variable
-
-    setSignupData((previous) => {
-      //setsignupData throws previous value event to inside function so that they can use it.
-      return { ...previous, [name]: value }; //never access event inside setstate(i.e this function as it is syntitic variable), thats why we made name and value variable above only.
-      //use spread ... to open previous value and put [] around key to make it a variable else it will be considered as a key itself.
-    });
-  };
-
-  function postData() {
-    axios({
-      method: "post",
-      url: "http://localhost:9000/signup",
-      data: signupData,
-      withCredentials: false,
-    }).then((res) => console.log(res));
-  }
-
   return (
-    <div>
-      <TextField
-        onTextEntered={typewriter}
+    <div style={{ padding: "20px" }} className="scaffold flexbox">
+      <div className="logo-main"></div>
+      <input
+        type="email"
         name="email"
-        error="no error"
-        label="Email"
-      />
-      <TextField
-        onTextEntered={typewriter}
+        placeholder="Email"
+        className="input-box"
+      ></input>
+      <input
+        type="password"
         name="password"
-        error="no error"
-        label="Password"
-        password="true"
-      />
-      <TextField
-        onTextEntered={typewriter}
-        name="userName"
-        error="no error"
-        label="User Name"
-      />
-      <h3 onClick={postData}>Signup</h3>
-      <Link to="/">Login</Link>
+        placeholder="Password"
+        className="input-box"
+      ></input>
+      <input
+        type="password"
+        name="password"
+        placeholder="Confirm password"
+        className="input-box"
+      ></input>
+      <button className="btn-primary">
+        Signup
+      </button>
+      <button className="btn-secondary">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
+          height="20px"
+        ></img>{" "}
+        Signup
+      </button>
+      <span style={{ fontSize: "25px", textAlign: "center" }}>
+        Already have an account? <Link to="/">Login</Link>
+      </span>
     </div>
   );
 }
