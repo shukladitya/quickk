@@ -1,15 +1,28 @@
-import React, { createContext ,useContext} from 'react'
+import { createContext, useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import { auth } from "../../firebase";
+const AuthContext = createContext();
 
-const AuthContext = createContext()
+const ContextComponent = ({ children }) => {
+  const [user, setUser] = useState();
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user);
+      console.log(user);
+    });
+  }, []);
 
-export function useAuth(){
-    return useContext(AuthContext)
-}
+  const history =useHistory();
 
-export function AuthProvider({children}) {
-    return (
-        <AuthContext.Provider>
-           {children} 
-        </AuthContext.Provider>
-    )
-}
+  const logout =()=>{
+      auth.signOut().then(()=>{
+          setUser(null);
+          history.push("/");
+      });
+  }
+
+  return <AuthContext.Provider value={{user,logout}}>{children}</AuthContext.Provider>;
+};
+
+export { ContextComponent };
+export default AuthContext

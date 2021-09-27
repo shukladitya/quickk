@@ -1,9 +1,13 @@
 import React from "react";
 import LoginSignup from "./pages/loginSignup";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ContextComponent } from "./pages/context/authContext";
 
 function App() {
-  return <LoginSignup />;
+  return (
+    <ContextComponent>
+      <LoginSignup />
+    </ContextComponent>
+  );
 }
 
 export default App;
