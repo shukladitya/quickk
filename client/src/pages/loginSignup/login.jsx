@@ -1,16 +1,19 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "../../firebase";
-import AuthContext from "../context/authContext";
+import { AuthContext } from "../context/authContext";
 
 function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-
+  const { user } = useContext(AuthContext);
   const [error, setError] = useState();
 
+  useEffect(() => {
+    if (user) history.push("dashboard");
+  }, [user]);
+
   const history = useHistory();
-  const { user } = useContext(AuthContext);
   const handleSubmit = async () => {
     setError();
     if (emailRef.current.value === "") setError("Enter an email.");

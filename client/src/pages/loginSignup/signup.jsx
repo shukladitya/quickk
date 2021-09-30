@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router-dom";
-import AuthContext from "../context/authContext";
+import { AuthContext } from "../context/authContext";
 
 function Signup() {
   const [error, seterror] = useState();
@@ -14,6 +14,7 @@ function Signup() {
   const history = useHistory();
 
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   const handleSubmit = async () => {
     seterror();
